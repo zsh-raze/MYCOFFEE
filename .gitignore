@@ -1,0 +1,33 @@
+# Private planning material (not committed)
+/plan.md
+/Planning/
+
+# Dependencies & build output (any folder)
+node_modules/
+.next/
+.next-qa/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Testing & QA screenshots
+test-results/
+playwright-report/
+shots/
+screenshots/
+
+# Deploy / secrets
+.vercel/
+.env*
+*.pem
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS & editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

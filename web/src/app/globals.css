@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ─────────────────────────────────────────────
+   Role-based names: set the hex values per project (sample them from the client's product
+   images unless the brief fixes a palette). Utilities: bg-paper, text-ink, bg-accent-strong, …  */
+:root {
+  /* Brief §8.2 palette. Terracotta and Sage fail WCAG AA for small text on Oat Cream (3.4:1 / 3.2:1),
+     so "-strong" variants are darkened for text; the originals stay for large or decorative use. */
+  --paper: #f5f0e8; /* Oat Cream — main background */
+  --surface: #fbf8f3; /* Oat Cream, lightened — cards, fields */
+  --ink: #292521; /* Espresso Charcoal — text, navigation, primary CTA */
+  --ink-soft: #5e554c; /* secondary text (6.4:1 on Oat Cream) */
+  --accent: #b96e4b; /* Roasted Terracotta — accents, selected state fill */
+  --accent-soft: #eedccf; /* Terracotta tint band */
+  --accent-strong: #8e4e31; /* Terracotta, darkened for small text (5.6:1 on Oat Cream) */
+  --sage: #7d8a70; /* Sage Green — supporting accent, decorative only */
+  --sage-strong: #5c6851; /* Sage, darkened for text (5.2:1 on Oat Cream) */
+  --tint-1: #e4e7dd; /* Sage tint band */
+  --tint-2: #ebe4da; /* Warm Stone / Oat midpoint band */
+  --tint-3: #d9d0c4; /* Warm Stone */
+  --gold: #7d8a70; /* rules / small marks (Sage) */
+  --dark: #292521; /* Espresso Charcoal — footer */
+  --dark-2: #3a342e;
+  --line: #d9d0c4; /* Warm Stone — borders, dividers */
+
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Height of each half of a section-to-section colour blend (see <Band>).
+     Kept smaller than section padding so text never sits on a blend. */
+  --fade: 48px;
+  color-scheme: light;
+}
+@media (min-width: 768px) {
+  :root {
+    --fade: 72px;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-strong: var(--accent-strong);
+  --color-tint-1: var(--tint-1);
+  --color-tint-2: var(--tint-2);
+  --color-tint-3: var(--tint-3);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-sage-strong: var(--sage-strong);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-line: var(--line);
+
+  /* System fonts only (nothing downloaded). Brief §8.4: readable serif for brand-led headings,
+     highly legible body font. */
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-display: var(--font-serif);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom classes live in a layer so Tailwind utilities (e.g. `hidden`) can override them. */
+@layer components {
+  /* ─── Type scale ─────────────────────────────────────────── */
+  /* Brief §8.4: H1 32–38 → 40–52px · H2 24–28 → 28–34px · H3 18–22 → 20–24px */
+  .t-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 1.55rem + 2vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .t-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 1.3rem + 0.9vw, 2.125rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  .t-h3 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.3;
+  }
+  .t-caption {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .t-display {
+    font-family: var(--font-serif);
+    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  /* ─── Buttons ────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0 1.5rem;
+    border: 1px solid var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    border-radius: 999px;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out,
+      border-color 200ms ease-in-out, opacity 200ms ease-in-out;
+    cursor: pointer;
+  }
+  /* Brief §8.3: primary CTA = Espresso background with high-contrast text. */
+  .btn-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+  .btn-primary:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-light {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--dark);
+  }
+  .btn-light:hover {
+    background: var(--tint-3);
+    border-color: var(--tint-3);
+  }
+
+  /* Selectable option (Build Your Coffee). Selected = Terracotta border + fill + check mark,
+     so state is never shown by colour alone (brief §8.6). */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 1.125rem;
+    border: 1px solid color-mix(in oklab, var(--ink) 25%, transparent);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out, color 200ms ease-in-out;
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: var(--ink);
+  }
+  .chip[aria-pressed="true"],
+  .chip[aria-checked="true"] {
+    background: var(--accent-soft);
+    border-color: var(--accent-strong);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .btn:focus-visible,
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+  }
+  .chip:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+  }
+
+  /* ─── Layout (1200px content, 24px gutters; 16px on mobile) ── */
+  .container-k {
+    width: 100%;
+    max-width: 1248px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 768px) {
+    .container-k {
+      padding-inline: 24px;
+    }
+  }
+}
+
+/* ─── Scroll reveal (15px fade-up) ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 700ms var(--ease-brand), transform 700ms var(--ease-brand);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Page fade-in (300ms) */
+.page-fade {
+  animation: page-fade 300ms var(--ease-brand) both;
+}
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Manifesto headline: masked line rise + drawn rules */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.mask-line > span {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 1000ms var(--ease-brand);
+}
+.is-visible .mask-line > span {
+  transform: none;
+}
+.draw-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1200ms var(--ease-brand);
+}
+.draw-line-right {
+  transform-origin: right;
+}
+.is-visible .draw-line,
+.is-visible.draw-line {
+  transform: scaleX(1);
+}
+
+/* Reduced motion: opacity fades only */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    transform: none;
+    transition: opacity 400ms linear;
+  }
+  .mask-line > span,
+  .draw-line {
+    transform: none;
+    transition: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
