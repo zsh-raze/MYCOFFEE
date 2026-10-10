@@ -41,6 +41,7 @@ export const en = {
       secondaryCta: "Explore coffee", // [Brief §2.3 "Explore coffee by category…"]
       quizLabel: "What kind of coffee experience do you enjoy?", // [Brief §5.3]
       quizHint: "Pick a flavor to start — or skip the quiz and browse.", // [UI] (§5.3 "let users skip the quiz")
+      imageAlt: "A stoneware cup of black coffee beside a pour-over brewer and scattered coffee beans on a linen table", // [UI]
     },
     statement: {
       eyebrow: "Brand philosophy", // [Brief §2.1]
@@ -56,11 +57,11 @@ export const en = {
       askMessage: "Hello Mycoffee.sg, I'd like to explore: ", // [UI]
       // [Brief §4.1 Product categories — "Examples" column]. ⚠️ Launch categories to be confirmed (plan.md A8).
       items: [
-        { name: "Coffee beans", examples: "Arabica, Robusta, Liberica, Excelsa; single-origin; blends; decaf" },
-        { name: "Ground coffee", examples: "Coarse, medium, fine, espresso or brewer-specific grind" },
-        { name: "Prepared coffee", examples: "Cold brew, concentrate, bottled coffee, instant, capsules, drip bags" },
-        { name: "Coffee accessories", examples: "Brewers, filters, grinders, scales, cups" },
-        { name: "Gifts and discovery sets", examples: "Tasting boxes, gift bundles, multi-origin sets" },
+        { name: "Coffee beans", alt: "Close-up of roasted whole coffee beans", examples: "Arabica, Robusta, Liberica, Excelsa; single-origin; blends; decaf" },
+        { name: "Ground coffee", alt: "Coarse, medium and fine ground coffee side by side with a brass scoop", examples: "Coarse, medium, fine, espresso or brewer-specific grind" },
+        { name: "Prepared coffee", alt: "A glass of iced cold brew next to a plain drip-bag sachet", examples: "Cold brew, concentrate, bottled coffee, instant, capsules, drip bags" },
+        { name: "Coffee accessories", alt: "A hand grinder, gooseneck kettle, scale and paper filters", examples: "Brewers, filters, grinders, scales, cups" },
+        { name: "Gifts and discovery sets", alt: "An open gift box holding three plain coffee pouches", examples: "Tasting boxes, gift bundles, multi-origin sets" },
       ],
     },
     how: {
@@ -68,6 +69,7 @@ export const en = {
       title: "Coffee selection as a guided, transparent process.", // [Brief §5.1, adapted]
       body: "Easy for a beginner and precise enough for an experienced buyer. You only see choices that are genuinely available.", // [Brief §5.1 + §2.3 Customize, adapted]
       cta: "Start building", // [UI]
+      imageAlt: "Overhead view of an espresso, a moka pot, a pour-over brewer and a bowl of coffee beans", // [UI]
       // [Brief §5.2 Recommended flow — step names + customer actions]
       steps: [
         { name: "Coffee type", text: "Select beans, ground coffee, drip bags, capsules, or another available format." },
@@ -109,6 +111,7 @@ export const en = {
     eyebrow: "Guided preferences", // [Brief §6.1 Build Your Coffee purpose]
     title: "Build Your Coffee", // [Brief §5]
     lead: "A short, optional quiz in plain language. Skip any question you’re not sure about.", // [Brief §5.3, adapted]
+    imageAlt: "", // decorative header photo (espresso cup)
     progress: "Step {n} of {total}", // [UI]
     back: "Back", // [UI]
     next: "Next", // [UI]
@@ -173,6 +176,7 @@ export const en = {
       { label: "Promise", text: "Better-informed choices, more relevant recommendations, and a simpler path from curiosity to a coffee that suits you." },
     ],
     philosophy: {
+      imageAlt: "Hands pouring water from a gooseneck kettle into a pour-over brewer", // [UI]
       eyebrow: "Brand philosophy", // [Brief §2.1]
       title: "Coffee is personal.", // [Brief §2.1]
       body: "People differ in taste, budget, daily routine, brewing equipment, and curiosity. Mycoffee.sg makes the world of coffee easier to explore while giving you the freedom to choose what suits you. The experience is welcoming to beginners without feeling simplistic to enthusiasts.", // [Brief §2.1, adapted]
@@ -194,6 +198,7 @@ export const en = {
   roasters: {
     eyebrow: "For roasters & suppliers", // [UI]
     title: "Join Mycoffee.sg", // [UI]
+    imageAlt: "", // decorative header photo (cupping table)
     lead: "Mycoffee.sg brings coffee from independent roasters, producers, specialty brands, and other qualified sellers into one easy-to-explore experience.", // [Brief §1 + §2.2, adapted] ⚠️ confirm supplier recruitment is part of launch (plan.md A9)
     ask: {
       eyebrow: "What we ask for", // [UI]

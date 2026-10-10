@@ -1,17 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { IMG, LOGO_SIZE } from "@/data/catalog";
+import { SITE } from "@/lib/site";
 
-/**
- * Text wordmark. No logo file has been supplied (plan.md A4), so the brand name is set in the
- * heading serif — swap for the client's logo image once it is approved.
- */
-export function Logo({ className = "" }: { className?: string }) {
-  return (
-    <span className={`font-[family-name:var(--font-serif)] leading-none tracking-[-0.01em] whitespace-nowrap ${className}`}>
-      Mycoffee<span className="text-accent-strong">.sg</span>
-    </span>
-  );
+/** Client wordmark concept (IMG.logo / LOGO_SIZE). Height is set by className, width follows. */
+export function Logo({ className = "", alt = SITE.name, priority = false }: { className?: string; alt?: string; priority?: boolean }) {
+  return <Image src={IMG.logo} alt={alt} {...LOGO_SIZE} priority={priority} className={`w-auto ${className}`} />;
 }
 
 /** Fades content up 15px when it enters the viewport. */
@@ -79,7 +75,7 @@ export function SectionHeading({
 }
 
 // Colour tokens a Band can use (must exist as --<name> in globals.css).
-export type Tone = "paper" | "surface" | "accent-soft" | "tint-1" | "tint-2" | "tint-3" | "dark" | "dark-2";
+export type Tone = "paper" | "surface" | "accent-soft" | "tint-1" | "tint-2" | "tint-3" | "footer" | "dark" | "dark-2";
 
 const smoothstep = (x: number) => x * x * (3 - 2 * x);
 const mix = (from: Tone, to: Tone, amount: number) =>
@@ -144,13 +140,20 @@ export function Band({
   );
 }
 
-/** Top-of-page header for sub-pages. Blends from the site header (paper) into the next band. */
+/**
+ * Top-of-page header for sub-pages. Blends from the site header (paper) into the next band.
+ * With `image`, the photo fills the header behind the text: subject on the right, a paper
+ * gradient from the left (from the bottom on mobile) keeps the text readable, and a bottom fade
+ * hands over to the next band. Use images composed with calm space on the left.
+ */
 export function PageHeader({
   eyebrow,
   title,
   lead,
   tone,
   next,
+  image,
+  imageAlt = "",
   children,
 }: {
   eyebrow: string;
@@ -158,18 +161,47 @@ export function PageHeader({
   lead: string;
   tone: Tone;
   next: Tone;
+  image?: string;
+  imageAlt?: string;
   children?: React.ReactNode;
 }) {
+  const text = (
+    <Reveal className={image ? "max-w-xl" : ""}>
+      <p className="t-caption mb-4 text-ink-soft">{eyebrow}</p>
+      <h1 className="t-display">{title}</h1>
+      <p className="mt-5 max-w-xl text-lg text-ink-soft">{lead}</p>
+    </Reveal>
+  );
+
+  if (!image) {
+    return (
+      <Band as="header" tone={tone} prev="paper" next={next}>
+        <div className="container-k py-14 md:py-20">
+          {text}
+          {children}
+        </div>
+      </Band>
+    );
+  }
+
   return (
-    <Band as="header" tone={tone} prev="paper" next={next}>
-      <div className="container-k py-14 md:py-20">
-        <Reveal>
-          <p className="t-caption mb-4 text-ink-soft">{eyebrow}</p>
-          <h1 className="t-display">{title}</h1>
-          <p className="mt-5 max-w-xl text-lg text-ink-soft">{lead}</p>
-        </Reveal>
-        {children}
+    <header className="relative isolate overflow-hidden">
+      <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-20 object-cover object-[70%_center] md:object-center" />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-paper from-38% via-paper/70 via-60% to-paper/0 to-90% md:bg-gradient-to-r md:from-paper md:from-25% md:via-paper/70 md:via-45% md:to-paper/0 md:to-70%"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 -z-10 h-20"
+        style={{ backgroundImage: `linear-gradient(to bottom, transparent, var(--${next}))` }}
+      />
+      <div className="container-k flex min-h-[460px] items-end pt-52 pb-14 md:min-h-[460px] md:items-center md:py-24">
+        <div>
+          {text}
+          {children}
+        </div>
       </div>
-    </Band>
+    </header>
   );
 }

@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Band, PageHeader, Reveal, SectionHeading } from "@/components/ui";
+import { IMG } from "@/data/catalog";
 import { useLang } from "@/lib/i18n";
 
 // About (brief §6.1): mission, brand philosophy and trust information.
@@ -29,21 +31,24 @@ export function AboutView() {
 
       {/* Philosophy — brief §2.1 */}
       <Band tone="paper" prev="paper" next="tint-1">
-        <div className="container-k grid gap-8 pb-20 md:grid-cols-12 md:pb-28">
+        <div className="container-k grid items-center gap-10 pb-20 md:grid-cols-12 md:gap-14 md:pb-28">
           <Reveal className="md:col-span-5">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line">
+              <Image src={IMG.about} alt={a.philosophy.imageAlt} fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+            </div>
+          </Reveal>
+          <Reveal className="md:col-span-7" delay={100}>
             <p className="t-caption mb-3 text-ink-soft">{a.philosophy.eyebrow}</p>
             <h2 className="font-[family-name:var(--font-serif)] text-[clamp(2.25rem,1.6rem+2.6vw,3.5rem)] leading-[1.02] tracking-[-0.02em]">
               {a.philosophy.title}
             </h2>
-          </Reveal>
-          <Reveal className="md:col-span-7 md:pt-10" delay={100}>
-            <p className="text-lg leading-relaxed md:text-xl">{a.philosophy.body}</p>
+            <p className="mt-6 text-lg leading-relaxed md:text-xl">{a.philosophy.body}</p>
           </Reveal>
         </div>
       </Band>
 
       {/* How we work — brief §1, §2.4, §4.2, §5.5 */}
-      <Band tone="tint-1" prev="paper" next="dark">
+      <Band tone="tint-1" prev="paper" next="footer">
         <div className="container-k py-20 md:py-28">
           <Reveal>
             <SectionHeading eyebrow={a.trust.eyebrow} title={a.trust.title} />

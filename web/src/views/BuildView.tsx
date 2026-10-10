@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Band, PageHeader } from "@/components/ui";
-import { GROUND_FORMAT, OPTIONS } from "@/data/catalog";
+import { GROUND_FORMAT, IMG, OPTIONS } from "@/data/catalog";
 import { useLang } from "@/lib/i18n";
 import { whatsappLink } from "@/lib/site";
 
@@ -107,9 +107,9 @@ export function BuildView() {
 
   return (
     <>
-      <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} tone="tint-2" next="paper" />
+      <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} image={IMG.buildHeader} imageAlt={b.imageAlt} tone="tint-2" next="paper" />
 
-      <Band tone="paper" prev="tint-2" next="dark">
+      <Band tone="paper" prev="paper" next="footer">
         <div className="container-k grid gap-10 pt-10 pb-20 md:pt-14 md:pb-28 lg:grid-cols-12">
           {/* Step list — progress indicator (brief §5.6) */}
           <nav aria-label={b.title} className="lg:col-span-4">

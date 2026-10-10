@@ -19,7 +19,8 @@
   --tint-2: #ebe4da; /* Warm Stone / Oat midpoint band */
   --tint-3: #d9d0c4; /* Warm Stone */
   --gold: #7d8a70; /* rules / small marks (Sage) */
-  --dark: #292521; /* Espresso Charcoal — footer */
+  --footer: #ece5da; /* Oat Cream, a step deeper — footer (close to the page background) */
+  --dark: #292521; /* Espresso Charcoal */
   --dark-2: #3a342e;
   --line: #d9d0c4; /* Warm Stone — borders, dividers */
 
@@ -49,6 +50,7 @@
   --color-gold: var(--gold);
   --color-sage: var(--sage);
   --color-sage-strong: var(--sage-strong);
+  --color-footer: var(--footer);
   --color-dark: var(--dark);
   --color-dark-2: var(--dark-2);
   --color-line: var(--line);

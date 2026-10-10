@@ -2,6 +2,7 @@
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { Band, PageHeader, Reveal, SectionHeading } from "@/components/ui";
+import { IMG } from "@/data/catalog";
 import { useLang } from "@/lib/i18n";
 
 // Supplier application (brief §6.5, §4.3–4.4, Journey E §7).
@@ -12,10 +13,10 @@ export function RoastersView() {
 
   return (
     <>
-      <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} tone="accent-soft" next="paper" />
+      <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} image={IMG.roasters} imageAlt={r.imageAlt} tone="accent-soft" next="paper" />
 
       {/* What we ask for */}
-      <Band tone="paper" prev="accent-soft" next="tint-2">
+      <Band tone="paper" prev="paper" next="tint-2">
         <div className="container-k grid gap-10 py-16 md:py-24 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
             <SectionHeading eyebrow={r.ask.eyebrow} title={r.ask.title} />
@@ -58,7 +59,7 @@ export function RoastersView() {
       </Band>
 
       {/* Application */}
-      <Band tone="paper" prev="tint-2" next="dark">
+      <Band tone="paper" prev="tint-2" next="footer">
         <div className="container-k py-16 md:py-24">
           <Reveal className="mx-auto max-w-2xl">
             <InquiryForm

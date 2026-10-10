@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { HomeHero } from "@/components/HomeHero";
 import { Band, Reveal, SectionHeading } from "@/components/ui";
+import { IMG } from "@/data/catalog";
 import { useLang } from "@/lib/i18n";
 import { whatsappLink } from "@/lib/site";
 
@@ -20,7 +22,7 @@ export function HomeView() {
 
       {/* Philosophy — manifesto headline with masked line rise + drawn rules */}
       <Band tone="paper" next="tint-2">
-        <div className="container-k pt-8 pb-20 md:pt-12 md:pb-32">
+        <div className="container-k pt-20 pb-20 md:pt-28 md:pb-32">
           <Reveal className="text-center">
             <div className="flex items-center justify-center gap-4">
               <span aria-hidden className="draw-line h-px w-10 bg-accent md:w-16" />
@@ -58,18 +60,21 @@ export function HomeView() {
           <ul className="mt-12 border-t border-ink/15">
             {h.explore.items.map((c, i) => (
               <Reveal as="li" key={c.name} delay={i * 60} className="border-b border-ink/15">
-                <div className="grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-8">
-                  <span aria-hidden className="text-sm text-accent-strong tabular-nums md:col-span-1">
+                <div className="grid grid-cols-[6.5rem_1fr] items-center gap-x-4 gap-y-2 py-5 sm:grid-cols-[9rem_1fr] md:grid-cols-12 md:gap-6 md:py-6">
+                  <div className="relative row-span-4 aspect-[4/3] self-start overflow-hidden rounded-2xl md:order-2 md:col-span-2 md:row-span-1 md:self-center">
+                    <Image src={IMG.categories[i]} alt={c.alt} fill sizes="(min-width: 768px) 16vw, 9rem" className="object-cover" />
+                  </div>
+                  <span aria-hidden className="text-sm text-accent-strong tabular-nums md:order-1 md:col-span-1">
                     {pad(i)}
                   </span>
-                  <h3 className="t-h3 md:col-span-4">{c.name}</h3>
-                  <p className="text-ink-soft md:col-span-5">{c.examples}</p>
+                  <h3 className="t-h3 md:order-3 md:col-span-3">{c.name}</h3>
+                  <p className="text-[15px] text-ink-soft md:order-4 md:col-span-4 md:text-base">{c.examples}</p>
                   <a
                     href={whatsappLink(h.explore.askMessage + c.name)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${h.explore.ask}: ${c.name}`}
-                    className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-accent-strong underline-offset-4 hover:underline md:col-span-2 md:mt-0 md:justify-self-end"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-accent-strong underline-offset-4 hover:underline md:order-5 md:col-span-2 md:justify-self-end"
                   >
                     {h.explore.ask} <span aria-hidden>→</span>
                   </a>
@@ -88,6 +93,9 @@ export function HomeView() {
             <Link href="/build" className="btn btn-primary mt-8">
               {h.how.cta}
             </Link>
+            <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-line">
+              <Image src={IMG.build} alt={h.how.imageAlt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+            </div>
           </Reveal>
           <ol className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:col-span-7">
             {h.how.steps.map((s, i) => (
@@ -140,7 +148,7 @@ export function HomeView() {
       </Band>
 
       {/* Roasters — brief §1, §6.5 */}
-      <Band tone="accent-soft" prev="dark-2" next="dark">
+      <Band tone="accent-soft" prev="dark-2" next="footer">
         <div className="container-k grid items-end gap-8 py-20 md:grid-cols-12 md:py-28">
           <Reveal className="md:col-span-8">
             <SectionHeading eyebrow={h.roasters.eyebrow} title={h.roasters.title} body={h.roasters.body} />

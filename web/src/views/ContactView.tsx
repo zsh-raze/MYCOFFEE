@@ -14,7 +14,7 @@ export function ContactView() {
     <>
       <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} tone="tint-3" next="paper" />
 
-      <Band tone="paper" prev="tint-3" next="dark">
+      <Band tone="paper" prev="tint-3" next="footer">
         <div className="container-k grid gap-10 py-16 md:grid-cols-12 md:py-24">
           <Reveal className="md:col-span-5">
             <p className="t-caption text-ink-soft">WhatsApp</p>
