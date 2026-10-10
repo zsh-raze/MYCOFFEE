@@ -114,7 +114,7 @@ export function HomeView() {
       </Band>
 
       {/* Brand pillars — brief §2.3 */}
-      <Band tone="tint-1" prev="paper" next="dark-2">
+      <Band tone="tint-1" prev="paper">
         <div className="container-k py-20 md:py-28">
           <Reveal>
             <p className="t-caption mb-3 text-sage-strong">{h.pillars.eyebrow}</p>
@@ -131,13 +131,14 @@ export function HomeView() {
         </div>
       </Band>
 
-      {/* Differentiation — brief §2.5 */}
-      <Band tone="dark-2" prev="tint-1" next="accent-soft" className="text-paper">
-        <div className="container-k py-24 text-center md:py-36">
-          <Reveal>
+      {/* Differentiation — brief §2.5. Full-screen statement with crisp edges: no colour blend
+          into its neighbours (long dark fades looked smudgy). */}
+      <Band tone="dark-2" className="text-paper">
+        <div className="container-k flex min-h-[100svh] flex-col items-center justify-center py-24 text-center md:py-32">
+          <Reveal className="w-full">
             <p className="t-caption text-paper/70">{h.question.eyebrow}</p>
             <p className="mt-8 text-lg text-paper/80">{h.question.lead}</p>
-            <h2 className="mx-auto mt-3 max-w-4xl font-[family-name:var(--font-serif)] text-[clamp(2.25rem,1.4rem+3.6vw,4.5rem)] leading-[1.04] tracking-[-0.02em]">
+            <h2 className="mx-auto mt-3 max-w-4xl font-[family-name:var(--font-serif)] text-[clamp(2.25rem,1.4rem+3.6vw,4.5rem)] leading-[1.04] tracking-[-0.02em] text-balance">
               {h.question.ask}
             </h2>
             <p className="mt-4 font-[family-name:var(--font-serif)] text-xl text-paper/70 italic md:text-2xl">{h.question.rather}</p>
@@ -148,7 +149,7 @@ export function HomeView() {
       </Band>
 
       {/* Roasters — brief §1, §6.5 */}
-      <Band tone="accent-soft" prev="dark-2" next="footer">
+      <Band tone="accent-soft" next="footer">
         <div className="container-k grid items-end gap-8 py-20 md:grid-cols-12 md:py-28">
           <Reveal className="md:col-span-8">
             <SectionHeading eyebrow={h.roasters.eyebrow} title={h.roasters.title} body={h.roasters.body} />
